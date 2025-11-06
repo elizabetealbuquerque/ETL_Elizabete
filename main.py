@@ -4,12 +4,19 @@ import time
 from pathlib import Path
 import pandas as pd
 
+# Pasta principal
+base = Path("dataset")
+
+# Subpastas
+for nome in ["raw", "bronze", "silver", "gold"]:
+    (base / nome).mkdir(parents=True, exist_ok=True)
+
 # Configuração
 BASE_URL = "https://brasil.io/api/v1/dataset/gastos-diretos/gastos/data/"
 RAW_DIR = Path("dataset/raw")
 BRONZE_DIR = Path("dataset/bronze")
 API_TOKEN = "0a3c26398bb82d107772cf4a05967ebbb7c95bcc"
-MAX_PAGES = 10
+MAX_PAGES = 1000
 
 RAW_DIR.mkdir(exist_ok=True)
 BRONZE_DIR.mkdir(exist_ok=True)
@@ -84,3 +91,4 @@ if __name__ == "__main__":
     print("\nProcessando para Parquet")
     process_to_parquet()
     print("Concluído")
+
